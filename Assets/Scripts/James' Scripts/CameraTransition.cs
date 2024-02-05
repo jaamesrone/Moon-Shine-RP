@@ -25,7 +25,11 @@ public class CameraTransition : MonoBehaviour
             {
                 if (hit.collider.CompareTag("OrderWindow"))
                 {
-                    orderWindowTransition(hit.transform);
+                    GameObject[] stillCubes = GameObject.FindGameObjectsWithTag("OrderWindow");
+                    if (stillCubes.Length > 0)
+                    {
+                        orderWindowTransition(stillCubes[0].transform);
+                    }
                 }
                 else if (hit.collider.CompareTag("MainArea"))
                 {
@@ -33,21 +37,144 @@ public class CameraTransition : MonoBehaviour
                 }
                 else if (hit.collider.CompareTag("Still"))
                 {
-                    StartStillTransistion(hit.transform);
+                    // Find all cubes with the "Still" tag and use the last one as the target...etc
+                    GameObject[] stillCubes = GameObject.FindGameObjectsWithTag("Still");
+                    if (stillCubes.Length > 0)
+                    {
+                        StartStillTransistion(stillCubes[stillCubes.Length - 1].transform);
+                    }
+                }
+                else if (hit.collider.CompareTag("Backyard"))
+                {
+                    GameObject[] stillCubes = GameObject.FindGameObjectsWithTag("Backyard");
+                    if (stillCubes.Length > 0)
+                    {
+                        BackyardTransition(stillCubes[0].transform);
+                    }
+                }
+                else if (hit.collider.CompareTag("Computer"))
+                {
+                    GameObject[] stillCubes = GameObject.FindGameObjectsWithTag("Computer");
+                    if (stillCubes.Length > 0)
+                    {
+                        ComputerTransition(stillCubes[0].transform);
+                    }
                 }
             }
         }
     }
 
-    public void orderWindowTransition(Transform targetTransform)
+    public void ComputerTransition(Transform targetTransform)
+    {
+        windowTrans = targetTransform;
+        originalPosition = transform.position;
+        originalRotation = transform.rotation;
+
+        StopAllCoroutines(); // Stop any ongoing transitions
+        StartCoroutine(ComputerTransitionCoroutine());
+    }
+
+    private IEnumerator ComputerTransitionCoroutine()
+    {
+        float elapsedTime = 0f;
+
+        // Adjust the distance between the camera and the object
+        float distanceOffset = -500f; // You can adjust this value to control the distance
+
+        // Adjust the target position and rotation for the computer transition
+        Vector3 targetPosition = windowTrans.position + new Vector3(0f, 0f, distanceOffset);
+        Quaternion targetRotation = Quaternion.Euler(0f, 0f, 0f) //rotate fixed
+
+        while (elapsedTime < transitionDuration)
+        {
+            float t = elapsedTime / transitionDuration;
+
+            transform.position = Vector3.Lerp(originalPosition, targetPosition, t);
+            transform.rotation = Quaternion.Slerp(originalRotation, targetRotation, t);
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+    }
+
+    private void BackyardTransition(Transform targetTransform)
     {
         windowTrans = targetTransform;
         originalPosition = transform.position;
         originalRotation = transform.rotation;
 
         StopAllCoroutines(); 
-        StartCoroutine(startOrderWindowTransition());
+        StartCoroutine(BackyardTransitionCoroutine());
     }
+
+    private IEnumerator BackyardTransitionCoroutine()
+    {
+        float elapsedTime = 0f;
+
+        // float target position and rotation for the backyard transition
+        float targetXOffset = -500f;
+        Vector3 targetPosition = windowTrans.position + new Vector3(targetXOffset, 0f, -5f);
+        Quaternion targetRotation = Quaternion.Euler(0f, 90f, 0f); 
+
+        while (elapsedTime < transitionDuration)
+        {
+            float t = elapsedTime / transitionDuration;
+
+            transform.position = Vector3.Lerp(originalPosition, targetPosition, t);
+            transform.rotation = Quaternion.Slerp(originalRotation, targetRotation, t);
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // Ensure final positions and rotation are exact
+        transform.position = targetPosition;
+        transform.rotation = targetRotation;
+    }
+
+        public void orderWindowTransition(Transform targetTransform)
+    {
+        windowTrans = targetTransform;
+        originalPosition = transform.position;
+        originalRotation = transform.rotation;
+
+        StopAllCoroutines();
+        StartCoroutine(startOrderWindowTransition()); 
+    }
+
+    private IEnumerator startOrderWindowTransition()
+    {
+        float elapsedTime = 0f;
+
+        //fixed Z value for the transition
+        float targetZ = 500f;
+
+        // distance between the camera and the object
+        float distanceOffset = 500; // You can adjust this value to control the distance
+
+        // adjust the target position and rotation for the transition
+        Vector3 targetPosition = new Vector3(windowTrans.position.x + distanceOffset, windowTrans.position.y, targetZ);
+        Quaternion targetRotation = Quaternion.Euler(0f, -90f, 0f); // Adjust the rotation as needed
+
+        while (elapsedTime < transitionDuration)
+        {
+            float t = elapsedTime / transitionDuration;
+
+            // Use Lerp to smoothly transition the position and rotation
+            transform.position = Vector3.Lerp(originalPosition, targetPosition, t);
+            transform.rotation = Quaternion.Slerp(originalRotation, targetRotation, t);
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.position = targetPosition;
+        transform.rotation = targetRotation;
+    }
+
+
+
+
 
     private void MainAreaTransition()
     {
@@ -61,38 +188,10 @@ public class CameraTransition : MonoBehaviour
         originalPosition = transform.position;
         originalRotation = transform.rotation;
 
-        StopAllCoroutines(); // Stop any ongoing transitions
+        StopAllCoroutines(); // stop any ongoing transitions
         StartCoroutine(StillTransition());
     }
 
-    private IEnumerator startOrderWindowTransition()
-    {
-        float elapsedTime = 0f;
-
-        // distance between the camera and window
-        float targetXOffset = 500f;
-
-        Vector3 targetPosition = windowTrans.position + new Vector3(targetXOffset, 0f, -5f); // Adjust the Z offset based on your scene setup
-
-        while (elapsedTime < transitionDuration)
-        {
-            float t = elapsedTime / transitionDuration;
-
-            // Use a smoothstep function to smoothly transitions the x from the original pov of the camera to the window scene
-            float smoothStep = Mathf.SmoothStep(originalPosition.x, targetPosition.x, t);
-
-            transform.position = new Vector3(smoothStep, Mathf.Lerp(originalPosition.y, targetPosition.y, t), Mathf.Lerp(originalPosition.z, targetPosition.z, t));
-
-            transform.rotation = Quaternion.Slerp(originalRotation, Quaternion.Euler(0f, -90f, 0f), t);
-
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        // making sure the final positions and rotation are exact because interpolation can be difficult
-        transform.position = targetPosition;
-        transform.rotation = Quaternion.Euler(0f, -90f, 0f);
-    }
 
     private IEnumerator mainAreaTransition()
     {
