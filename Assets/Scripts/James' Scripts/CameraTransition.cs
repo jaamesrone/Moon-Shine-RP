@@ -83,7 +83,7 @@ public class CameraTransition : MonoBehaviour
 
         // Adjust the target position and rotation for the computer transition
         Vector3 targetPosition = windowTrans.position + new Vector3(0f, 0f, distanceOffset);
-        Quaternion targetRotation = Quaternion.Euler(0f, 0f, 0f) //rotate fixed
+        Quaternion targetRotation = Quaternion.Euler(0f, 0f, 0f); //rotate fixed
 
         while (elapsedTime < transitionDuration)
         {
