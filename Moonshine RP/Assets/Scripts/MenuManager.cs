@@ -9,6 +9,8 @@ public class MenuManager : MonoBehaviour
     private GameObject MainMenu;
     [SerializeField]
     private GameObject OptionsMenuObject;
+    [SerializeField]
+    private GameObject CreditsMenu;
 
     bool Tutorial = true;
     [SerializeField]
@@ -30,8 +32,11 @@ public class MenuManager : MonoBehaviour
 
     public void Credits()
     {
-
+        MainMenu.SetActive(false);
+        CreditsMenu.SetActive(true);
     }
+
+
 
     public void QuitGame()
     {
@@ -52,7 +57,7 @@ public class MenuManager : MonoBehaviour
     public void BacktoMenu()
     {
         OptionsMenuObject.SetActive(false);
+        CreditsMenu.SetActive(false);
         MainMenu.SetActive(true);
-
     }
 }
