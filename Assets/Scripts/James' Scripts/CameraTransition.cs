@@ -1,14 +1,28 @@
 using System.Collections;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class CameraTransition : MonoBehaviour
 {
+    public List<GameObject> buttons;
+    public List<GameObject> gameObjectsToHide;
+
+
     public float transitionDuration;
 
     private Transform windowTrans;
     private Vector3 originalPosition;
     private Quaternion originalRotation;
 
+    private void Start()
+    {
+        // Hide all game objects on start
+        foreach (GameObject obj in gameObjectsToHide)
+        {
+            obj.SetActive(false);
+        }
+    }
     private void Update()
     {
         HandleSceneTransitions();
@@ -18,7 +32,7 @@ public class CameraTransition : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); //mouse clicks
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity))
@@ -37,7 +51,6 @@ public class CameraTransition : MonoBehaviour
                 }
                 else if (hit.collider.CompareTag("Still"))
                 {
-                    // Find all cubes with the "Still" tag and use the last one as the target...etc
                     GameObject[] stillCubes = GameObject.FindGameObjectsWithTag("Still");
                     if (stillCubes.Length > 0)
                     {
@@ -64,24 +77,39 @@ public class CameraTransition : MonoBehaviour
         }
     }
 
+
+
     public void ComputerTransition(Transform targetTransform)
     {
+        // hiding all game objects
+        foreach (GameObject obj in gameObjectsToHide)
+        {
+            obj.SetActive(false);
+        }
+
         windowTrans = targetTransform;
         originalPosition = transform.position;
         originalRotation = transform.rotation;
+
+        // only showing game objects 0-2
+        for (int i = 0; i <= 2 && i < gameObjectsToHide.Count; i++)
+        {
+            gameObjectsToHide[i].SetActive(true);
+        }
 
         StopAllCoroutines(); // Stop any ongoing transitions
         StartCoroutine(ComputerTransitionCoroutine());
     }
 
+
     private IEnumerator ComputerTransitionCoroutine()
     {
         float elapsedTime = 0f;
 
-        // Adjust the distance between the camera and the object
+        // distance between the camera and the object
         float distanceOffset = -500f; // You can adjust this value to control the distance
 
-        // Adjust the target position and rotation for the computer transition
+        // target position and rotation for the computer transition
         Vector3 targetPosition = windowTrans.position + new Vector3(0f, 0f, distanceOffset);
         Quaternion targetRotation = Quaternion.Euler(0f, 0f, 0f); //rotate fixed
 
@@ -97,14 +125,26 @@ public class CameraTransition : MonoBehaviour
         }
     }
 
-    private void BackyardTransition(Transform targetTransform)
+
+
+    public void BackyardTransition(Transform targetTransform)
     {
         windowTrans = targetTransform;
         originalPosition = transform.position;
         originalRotation = transform.rotation;
 
-        StopAllCoroutines(); 
+        // hide all game objects
+        foreach (GameObject obj in gameObjectsToHide)
+        {
+            obj.SetActive(false);
+        }
+
+        // element 0 shows only
+        if (gameObjectsToHide.Count > 0) gameObjectsToHide[0].SetActive(true); // Element 0
+
+        StopAllCoroutines();
         StartCoroutine(BackyardTransitionCoroutine());
+
     }
 
     private IEnumerator BackyardTransitionCoroutine()
@@ -127,19 +167,29 @@ public class CameraTransition : MonoBehaviour
             yield return null;
         }
 
-        // Ensure final positions and rotation are exact
+        // final positions and rotation are exact
         transform.position = targetPosition;
         transform.rotation = targetRotation;
     }
 
-        public void orderWindowTransition(Transform targetTransform)
+    public void orderWindowTransition(Transform targetTransform)
     {
+        // hide all game objects
+        foreach (GameObject obj in gameObjectsToHide)
+        {
+            obj.SetActive(false);
+        }
+
+        // elements 0 and 5 show only
+        if (gameObjectsToHide.Count > 0) gameObjectsToHide[0].SetActive(true); // Element 0
+        if (gameObjectsToHide.Count > 5) gameObjectsToHide[5].SetActive(true); // Element 5
+
         windowTrans = targetTransform;
         originalPosition = transform.position;
         originalRotation = transform.rotation;
 
-        StopAllCoroutines();
-        StartCoroutine(startOrderWindowTransition()); 
+        StopAllCoroutines(); // stop any ongoing transitions
+        StartCoroutine(startOrderWindowTransition());
     }
 
     private IEnumerator startOrderWindowTransition()
@@ -172,18 +222,31 @@ public class CameraTransition : MonoBehaviour
         transform.rotation = targetRotation;
     }
 
-
-
-
-
-    private void MainAreaTransition()
+    public void MainAreaTransition()
     {
-        StopAllCoroutines(); 
+        // hide all game objects
+        foreach (GameObject obj in gameObjectsToHide)
+        {
+            obj.SetActive(false);
+        }
+
+        StopAllCoroutines();
         StartCoroutine(mainAreaTransition());
     }
 
-    private void StartStillTransistion(Transform targetTransform)
+    public void StartStillTransistion(Transform targetTransform)
     {
+        // hide all game objects
+        foreach (GameObject obj in gameObjectsToHide)
+        {
+            obj.SetActive(false);
+        }
+
+        // elements 0,3, and 4 show only
+        if (gameObjectsToHide.Count > 0) gameObjectsToHide[0].SetActive(true); // Element 0
+        if (gameObjectsToHide.Count > 3) gameObjectsToHide[3].SetActive(true); // Element 3
+        if (gameObjectsToHide.Count > 4) gameObjectsToHide[4].SetActive(true); // Element 4
+
         windowTrans = targetTransform;
         originalPosition = transform.position;
         originalRotation = transform.rotation;
@@ -191,7 +254,6 @@ public class CameraTransition : MonoBehaviour
         StopAllCoroutines(); // stop any ongoing transitions
         StartCoroutine(StillTransition());
     }
-
 
     private IEnumerator mainAreaTransition()
     {
