@@ -227,7 +227,7 @@ public class CameraTransition : MonoBehaviour
         originalRotation = transform.rotation;
 
         StopAllCoroutines(); // stop any ongoing transitions
-        StartCoroutine(StillTransition());
+        StartCoroutine(StillTransition(targetTransform));
     }
 
     private IEnumerator mainAreaTransition()
@@ -252,34 +252,36 @@ public class CameraTransition : MonoBehaviour
         transform.rotation = Quaternion.identity;
     }
 
-    private IEnumerator StillTransition()
+    private IEnumerator StillTransition(Transform targetTransform)
     {
         float elapsedTime = 0.0f;
 
-        // distance between camera to still cube
-        float zOffset = -350f;
+        // Define the distance between the camera and the target along the z-axis
+        float zDistance = -500f;
 
-        Vector3 targetPosition = targetPos.position + new Vector3(0f, 0f, zOffset);
+        // Calculate the target position with the specified distance along the z-axis
+        Vector3 targetPosition = targetTransform.position + targetTransform.forward * zDistance;
+
+        // Save the original position and rotation of the camera
+        Vector3 originalPosition = transform.position;
+        Quaternion originalRotation = transform.rotation;
 
         while (elapsedTime < transitionDuration)
         {
             float t = elapsedTime / transitionDuration;
 
-            // smoothstep interpolates between a min(origPos) and max(targetPosition)
-            float smoothStepX = Mathf.SmoothStep(originalPosition.x, targetPosition.x, t);
-            float smoothStepZ = Mathf.SmoothStep(originalPosition.z, targetPosition.z, t);
-
-            //update the camera position using the interpolated X and Z coordinates
-            transform.position = new Vector3(smoothStepX, originalPosition.y, smoothStepZ);
+            // Smoothly interpolate the position and rotation
+            transform.position = Vector3.Lerp(originalPosition, targetPosition, t);
+            transform.rotation = Quaternion.Slerp(originalRotation, Quaternion.identity, t);
 
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        // making sure the final positions and rotation are exact because interpolation can be difficult
-        transform.position = new Vector3(targetPosition.x, originalPosition.y, targetPosition.z);
+        // Ensure the final position and rotation are exact
+        transform.position = targetPosition;
+        transform.rotation = Quaternion.identity;
     }
-
 
 
 }
