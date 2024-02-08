@@ -14,36 +14,23 @@ public class CameraTransition : MonoBehaviour
     private Transform windowTrans;
     private Vector3 originalPosition;
     private Quaternion originalRotation;
-
-    private void Start()
-    {
-        // Hide all game objects on start
-        foreach (GameObject obj in gameObjectsToHide)
-        {
-            obj.SetActive(false);
-        }
-    }
     private void Update()
     {
         HandleSceneTransitions();
     }
 
-    private void HandleSceneTransitions()
+     private void HandleSceneTransitions()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); //mouse clicks
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity))
             {
                 if (hit.collider.CompareTag("OrderWindow"))
                 {
-                    GameObject[] stillCubes = GameObject.FindGameObjectsWithTag("OrderWindow");
-                    if (stillCubes.Length > 0)
-                    {
-                        orderWindowTransition(stillCubes[0].transform);
-                    }
+                    orderWindowTransition(hit.transform);
                 }
                 else if (hit.collider.CompareTag("MainArea"))
                 {
@@ -51,27 +38,15 @@ public class CameraTransition : MonoBehaviour
                 }
                 else if (hit.collider.CompareTag("Still"))
                 {
-                    GameObject[] stillCubes = GameObject.FindGameObjectsWithTag("Still");
-                    if (stillCubes.Length > 0)
-                    {
-                        StartStillTransistion(stillCubes[stillCubes.Length - 1].transform);
-                    }
+                    StartStillTransistion(hit.transform);
                 }
                 else if (hit.collider.CompareTag("Backyard"))
                 {
-                    GameObject[] stillCubes = GameObject.FindGameObjectsWithTag("Backyard");
-                    if (stillCubes.Length > 0)
-                    {
-                        BackyardTransition(stillCubes[0].transform);
-                    }
+                    BackyardTransition(hit.transform);
                 }
                 else if (hit.collider.CompareTag("Computer"))
                 {
-                    GameObject[] stillCubes = GameObject.FindGameObjectsWithTag("Computer");
-                    if (stillCubes.Length > 0)
-                    {
-                        ComputerTransition(stillCubes[0].transform);
-                    }
+                    ComputerTransition(hit.transform);
                 }
             }
         }
@@ -107,7 +82,7 @@ public class CameraTransition : MonoBehaviour
         float elapsedTime = 0f;
 
         // distance between the camera and the object
-        float distanceOffset = -500f; // You can adjust this value to control the distance
+        float distanceOffset = -500f; // adjust this value to control the distance
 
         // target position and rotation for the computer transition
         Vector3 targetPosition = windowTrans.position + new Vector3(0f, 0f, distanceOffset);
