@@ -728,13 +728,6 @@ MonoBehaviour:
   - {fileID: 1803340946}
   - {fileID: 90589220}
   - {fileID: 832202858}
-  gameObjectsToHide:
-  - {fileID: 1625013296}
-  - {fileID: 922597350}
-  - {fileID: 1222746856}
-  - {fileID: 1803340946}
-  - {fileID: 90589220}
-  - {fileID: 832202858}
   transitionDuration: 1
 --- !u!1 &369843351
 GameObject:

@@ -6,7 +6,6 @@ using UnityEngine;
 public class CameraTransition : MonoBehaviour
 {
     public List<GameObject> buttons;
-    public List<GameObject> gameObjectsToHide;
 
 
     public float transitionDuration;
@@ -57,7 +56,7 @@ public class CameraTransition : MonoBehaviour
     public void ComputerTransition(Transform targetTransform)
     {
         // hiding all game objects
-        foreach (GameObject obj in gameObjectsToHide)
+        foreach (GameObject obj in buttons)
         {
             obj.SetActive(false);
         }
@@ -67,9 +66,9 @@ public class CameraTransition : MonoBehaviour
         originalRotation = transform.rotation;
 
         // only showing game objects 0-2
-        for (int i = 0; i <= 2 && i < gameObjectsToHide.Count; i++)
+        for (int i = 0; i <= 2 && i < buttons.Count; i++)
         {
-            gameObjectsToHide[i].SetActive(true);
+            buttons[i].SetActive(true);
         }
 
         StopAllCoroutines(); // Stop any ongoing transitions
@@ -109,13 +108,13 @@ public class CameraTransition : MonoBehaviour
         originalRotation = transform.rotation;
 
         // hide all game objects
-        foreach (GameObject obj in gameObjectsToHide)
+        foreach (GameObject obj in buttons)
         {
             obj.SetActive(false);
         }
 
         // element 0 shows only
-        if (gameObjectsToHide.Count > 0) gameObjectsToHide[0].SetActive(true); // Element 0
+        if (buttons.Count > 0) buttons[0].SetActive(true); // Element 0
 
         StopAllCoroutines();
         StartCoroutine(BackyardTransitionCoroutine());
@@ -150,14 +149,14 @@ public class CameraTransition : MonoBehaviour
     public void orderWindowTransition(Transform targetTransform)
     {
         // hide all game objects
-        foreach (GameObject obj in gameObjectsToHide)
+        foreach (GameObject obj in buttons)
         {
             obj.SetActive(false);
         }
 
         // elements 0 and 5 show only
-        if (gameObjectsToHide.Count > 0) gameObjectsToHide[0].SetActive(true); // Element 0
-        if (gameObjectsToHide.Count > 5) gameObjectsToHide[5].SetActive(true); // Element 5
+        if (buttons.Count > 0) buttons[0].SetActive(true); // Element 0
+        if (buttons.Count > 5) buttons[5].SetActive(true); // Element 5
 
         targetPos = targetTransform;
         originalPosition = transform.position;
@@ -200,7 +199,7 @@ public class CameraTransition : MonoBehaviour
     public void MainAreaTransition()
     {
         // hide all game objects
-        foreach (GameObject obj in gameObjectsToHide)
+        foreach (GameObject obj in buttons)
         {
             obj.SetActive(false);
         }
@@ -212,15 +211,15 @@ public class CameraTransition : MonoBehaviour
     public void StartStillTransistion(Transform targetTransform)
     {
         // hide all game objects
-        foreach (GameObject obj in gameObjectsToHide)
+        foreach (GameObject obj in buttons)
         {
             obj.SetActive(false);
         }
 
         // elements 0,3, and 4 show only
-        if (gameObjectsToHide.Count > 0) gameObjectsToHide[0].SetActive(true); // Element 0
-        if (gameObjectsToHide.Count > 3) gameObjectsToHide[3].SetActive(true); // Element 3
-        if (gameObjectsToHide.Count > 4) gameObjectsToHide[4].SetActive(true); // Element 4
+        if (buttons.Count > 0) buttons[0].SetActive(true); // Element 0
+        if (buttons.Count > 3) buttons[3].SetActive(true); // Element 3
+        if (buttons.Count > 4) buttons[4].SetActive(true); // Element 4
 
         targetPos = targetTransform;
         originalPosition = transform.position;
