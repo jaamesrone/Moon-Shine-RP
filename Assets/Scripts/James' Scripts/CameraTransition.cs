@@ -256,13 +256,13 @@ public class CameraTransition : MonoBehaviour
     {
         float elapsedTime = 0.0f;
 
-        // Define the distance between the camera and the target along the z-axis
+        // zdistant offset between camera and object
         float zDistance = -500f;
 
-        // Calculate the target position with the specified distance along the z-axis
+        // we calculate the target position with the specified distance along the z-axis
         Vector3 targetPosition = targetTransform.position + targetTransform.forward * zDistance;
 
-        // Save the original position and rotation of the camera
+        // now I save the original position and rotation of the camera
         Vector3 originalPosition = transform.position;
         Quaternion originalRotation = transform.rotation;
 
@@ -270,7 +270,7 @@ public class CameraTransition : MonoBehaviour
         {
             float t = elapsedTime / transitionDuration;
 
-            // Smoothly interpolate the position and rotation
+            // smoothly interpolate the position and rotation
             transform.position = Vector3.Lerp(originalPosition, targetPosition, t);
             transform.rotation = Quaternion.Slerp(originalRotation, Quaternion.identity, t);
 
@@ -278,7 +278,7 @@ public class CameraTransition : MonoBehaviour
             yield return null;
         }
 
-        // Ensure the final position and rotation are exact
+        // making sure the final position and rotation are exact
         transform.position = targetPosition;
         transform.rotation = Quaternion.identity;
     }
