@@ -11,7 +11,7 @@ public class CameraTransition : MonoBehaviour
 
     public float transitionDuration;
 
-    private Transform windowTrans;
+    private Transform targetPos;
     private Vector3 originalPosition;
     private Quaternion originalRotation;
     private void Update()
@@ -62,7 +62,7 @@ public class CameraTransition : MonoBehaviour
             obj.SetActive(false);
         }
 
-        windowTrans = targetTransform;
+        targetPos = targetTransform;
         originalPosition = transform.position;
         originalRotation = transform.rotation;
 
@@ -85,7 +85,7 @@ public class CameraTransition : MonoBehaviour
         float distanceOffset = -500f; // adjust this value to control the distance
 
         // target position and rotation for the computer transition
-        Vector3 targetPosition = windowTrans.position + new Vector3(0f, 0f, distanceOffset);
+        Vector3 targetPosition = targetPos.position + new Vector3(0f, 0f, distanceOffset);
         Quaternion targetRotation = Quaternion.Euler(0f, 0f, 0f); //rotate fixed
 
         while (elapsedTime < transitionDuration)
@@ -104,7 +104,7 @@ public class CameraTransition : MonoBehaviour
 
     public void BackyardTransition(Transform targetTransform)
     {
-        windowTrans = targetTransform;
+        targetPos = targetTransform;
         originalPosition = transform.position;
         originalRotation = transform.rotation;
 
@@ -128,7 +128,7 @@ public class CameraTransition : MonoBehaviour
 
         // float target position and rotation for the backyard transition
         float targetXOffset = -500f;
-        Vector3 targetPosition = windowTrans.position + new Vector3(targetXOffset, 0f, -5f);
+        Vector3 targetPosition = targetPos.position + new Vector3(targetXOffset, 0f, -5f);
         Quaternion targetRotation = Quaternion.Euler(0f, 90f, 0f); 
 
         while (elapsedTime < transitionDuration)
@@ -159,7 +159,7 @@ public class CameraTransition : MonoBehaviour
         if (gameObjectsToHide.Count > 0) gameObjectsToHide[0].SetActive(true); // Element 0
         if (gameObjectsToHide.Count > 5) gameObjectsToHide[5].SetActive(true); // Element 5
 
-        windowTrans = targetTransform;
+        targetPos = targetTransform;
         originalPosition = transform.position;
         originalRotation = transform.rotation;
 
@@ -178,7 +178,7 @@ public class CameraTransition : MonoBehaviour
         float distanceOffset = 500; // You can adjust this value to control the distance
 
         // adjust the target position and rotation for the transition
-        Vector3 targetPosition = new Vector3(windowTrans.position.x + distanceOffset, windowTrans.position.y, targetZ);
+        Vector3 targetPosition = new Vector3(targetPos.position.x + distanceOffset, targetPos.position.y, targetZ);
         Quaternion targetRotation = Quaternion.Euler(0f, -90f, 0f); // Adjust the rotation as needed
 
         while (elapsedTime < transitionDuration)
@@ -222,7 +222,7 @@ public class CameraTransition : MonoBehaviour
         if (gameObjectsToHide.Count > 3) gameObjectsToHide[3].SetActive(true); // Element 3
         if (gameObjectsToHide.Count > 4) gameObjectsToHide[4].SetActive(true); // Element 4
 
-        windowTrans = targetTransform;
+        targetPos = targetTransform;
         originalPosition = transform.position;
         originalRotation = transform.rotation;
 
@@ -259,7 +259,7 @@ public class CameraTransition : MonoBehaviour
         // distance between camera to still cube
         float zOffset = -350f;
 
-        Vector3 targetPosition = windowTrans.position + new Vector3(0f, 0f, zOffset);
+        Vector3 targetPosition = targetPos.position + new Vector3(0f, 0f, zOffset);
 
         while (elapsedTime < transitionDuration)
         {
