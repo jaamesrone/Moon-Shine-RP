@@ -240,6 +240,7 @@ GameObject:
   - component: {fileID: 90589224}
   - component: {fileID: 90589223}
   - component: {fileID: 90589222}
+  - component: {fileID: 90589225}
   m_Layer: 5
   m_Name: Computer
   m_TagString: Untagged
@@ -361,6 +362,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 90589220}
   m_CullTransparentMesh: 1
+--- !u!225 &90589225
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 90589220}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &93477532
 GameObject:
   m_ObjectHideFlags: 0
@@ -728,6 +741,13 @@ MonoBehaviour:
   - {fileID: 1803340946}
   - {fileID: 90589220}
   - {fileID: 832202858}
+  buttonCanvasGroups:
+  - {fileID: 1625013301}
+  - {fileID: 922597355}
+  - {fileID: 1222746861}
+  - {fileID: 1803340951}
+  - {fileID: 90589225}
+  - {fileID: 832202863}
   transitionDuration: 1
 --- !u!1 &369843351
 GameObject:
@@ -1200,6 +1220,7 @@ GameObject:
   - component: {fileID: 832202862}
   - component: {fileID: 832202861}
   - component: {fileID: 832202860}
+  - component: {fileID: 832202863}
   m_Layer: 5
   m_Name: Still2
   m_TagString: Untagged
@@ -1273,7 +1294,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 173473897}
         m_TargetAssemblyTypeName: CameraTransition, Assembly-CSharp
-        m_MethodName: StartStillTransistion
+        m_MethodName: StartStillTransition
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 1152056877}
@@ -1321,6 +1342,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 832202858}
   m_CullTransparentMesh: 1
+--- !u!225 &832202863
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 832202858}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &835446678
 GameObject:
   m_ObjectHideFlags: 0
@@ -1420,7 +1453,7 @@ Transform:
   m_GameObject: {fileID: 835446678}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 277.5, y: -288, z: -48}
+  m_LocalPosition: {x: 454, y: -288, z: -48}
   m_LocalScale: {x: 50, y: 50, z: 303.66187}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1473,6 +1506,7 @@ GameObject:
   - component: {fileID: 922597354}
   - component: {fileID: 922597353}
   - component: {fileID: 922597352}
+  - component: {fileID: 922597355}
   m_Layer: 5
   m_Name: Still
   m_TagString: Untagged
@@ -1546,7 +1580,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 173473897}
         m_TargetAssemblyTypeName: CameraTransition, Assembly-CSharp
-        m_MethodName: StartStillTransistion
+        m_MethodName: StartStillTransition
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 1152056877}
@@ -1594,6 +1628,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 922597350}
   m_CullTransparentMesh: 1
+--- !u!225 &922597355
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 922597350}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &988107033
 GameObject:
   m_ObjectHideFlags: 0
@@ -1950,6 +1996,7 @@ GameObject:
   - component: {fileID: 1222746860}
   - component: {fileID: 1222746859}
   - component: {fileID: 1222746858}
+  - component: {fileID: 1222746861}
   m_Layer: 5
   m_Name: Backyard
   m_TagString: Untagged
@@ -2071,6 +2118,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1222746856}
   m_CullTransparentMesh: 1
+--- !u!225 &1222746861
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1222746856}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1237230062
 GameObject:
   m_ObjectHideFlags: 0
@@ -3041,6 +3100,7 @@ GameObject:
   - component: {fileID: 1625013300}
   - component: {fileID: 1625013299}
   - component: {fileID: 1625013298}
+  - component: {fileID: 1625013301}
   m_Layer: 5
   m_Name: MainArea
   m_TagString: Untagged
@@ -3162,6 +3222,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1625013296}
   m_CullTransparentMesh: 1
+--- !u!225 &1625013301
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1625013296}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1643348645
 GameObject:
   m_ObjectHideFlags: 0
@@ -3415,6 +3487,7 @@ GameObject:
   - component: {fileID: 1803340949}
   - component: {fileID: 1803340948}
   - component: {fileID: 1803340947}
+  - component: {fileID: 1803340951}
   m_Layer: 5
   m_Name: OrderWindow
   m_TagString: Untagged
@@ -3536,6 +3609,18 @@ RectTransform:
   m_AnchoredPosition: {x: -212, y: -81}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &1803340951
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1803340946}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1805218705
 GameObject:
   m_ObjectHideFlags: 0
