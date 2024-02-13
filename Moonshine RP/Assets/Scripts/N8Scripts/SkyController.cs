@@ -13,12 +13,13 @@ public class SkyController : MonoBehaviour
     public float NightValue;
     public float changeSpeed;
 
+
     public float Timer;
+    
     private void Start()
     {
         SkyBox = RenderSettings.skybox;
 
-        isNight = false;
         
     }
 
@@ -34,18 +35,18 @@ public class SkyController : MonoBehaviour
            
             SkyBox.SetColor("_Tint",new Color(tFactor, tFactor, tFactor, 1));
            
-
         }
 
 
-        if (isNight == false && tFactor <= DayValue)
+        else if (isNight == false && tFactor <= DayValue)
         {
-            Timer = Time.deltaTime;
             tFactor += Time.deltaTime * changeSpeed;
             SkyBox.SetColor("_Tint",new Color(tFactor, tFactor, tFactor, 1));
 
-            
+           
         }
+
+        
 
     }
 
