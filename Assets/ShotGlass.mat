@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: ShotGlass
-  m_Shader: {fileID: -6465566751694194690, guid: 39ba5620c93100a489ecc5c86f5b27cb,
+  m_Shader: {fileID: -6465566751694194690, guid: 23bc0788cd24eb648bad9ebc2faa5d18,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -45,7 +45,7 @@ Material:
     - _Side: {r: 1, g: 1, b: 1, a: 1}
     - _Top: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
---- !u!114 &5262055175653924452
+--- !u!114 &7628788990079328125
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
