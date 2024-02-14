@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Objects : MonoBehaviour
@@ -9,36 +8,43 @@ public class Objects : MonoBehaviour
 
     void Start()
     {
-        // Example of using the MasonJarSettings
+        // Set the liquid level to 0 at the start
+        liquid.liquidLevel = 0;
         SetLiquidLevel(liquid.liquidLevel);
+
+        // Set the jar colors
         SetJarColors(liquid.Side, liquid.Top);
+
+        /*// Start the IncreaseLiquidLevel coroutine
+        StartCoroutine(IncreaseLiquidLevel());*/
     }
 
-    public void SetLiquidLevel(float level)
+    IEnumerator IncreaseLiquidLevel()
     {
+        // While the liquid level is less than 1
+        while (liquid.liquidLevel < 1)
+        {
+            // Increase the liquid level by 0.1
+            liquid.liquidLevel += 0.1f;
 
+            // Update the liquid level in the shader
+            SetLiquidLevel(liquid.liquidLevel);
+
+            // Wait for 1 second before the next increase
+            yield return new WaitForSeconds(0.3f);
+        }
+    }
+
+    void SetLiquidLevel(float level)
+    {
         // Set liquid level using shader properties
         jarMaterial.SetFloat("_Liquid", level);
     }
 
-    public void IncreaseLiquidLevel()
+    void SetJarColors(Color sideColor, Color topColor)
     {
-        // Increase liquid level by 0.1 each time the button is clicked
-        liquid.liquidLevel += 0.1f;
-
-        // Clamp the value between 0 and 1
-        liquid.liquidLevel = Mathf.Clamp(liquid.liquidLevel, 0, 1);
-
-        // Update the liquid level in the shader
-        SetLiquidLevel(liquid.liquidLevel);
-    }
-
-    public void SetJarColors(Color sideColor, Color topColor)
-    {
-
         // Set side and top colors using shader properties
         jarMaterial.SetColor("_Side", sideColor);
         jarMaterial.SetColor("_Top", topColor);
     }
 }
-

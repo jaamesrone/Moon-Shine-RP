@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Top: {r: 0, g: 0, b: 0, a: 0}
   Side: {r: 0, g: 0, b: 0, a: 0}
-  liquidLevel: 0.6
+  liquidLevel: 0
