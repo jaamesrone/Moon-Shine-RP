@@ -2,20 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Liquid", menuName = "Liquid")]
-public class LiquidEffects : MonoBehaviour
+[CreateAssetMenu( menuName = "ScriptableObjects/Liquid")]
+public class LiquidEffects : ScriptableObject
 {
-    public Color color;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public Color Top;
+    public Color Side;
+    public float liquidLevel; 
+    
 }
