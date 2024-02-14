@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class SkyController : MonoBehaviour
@@ -14,7 +15,7 @@ public class SkyController : MonoBehaviour
     public float changeSpeed;
 
 
-    public float Timer;
+  
     
     private void Start()
     {
@@ -34,24 +35,29 @@ public class SkyController : MonoBehaviour
             tFactor -= Time.deltaTime * changeSpeed;
            
             SkyBox.SetColor("_Tint",new Color(tFactor, tFactor, tFactor, 1));
-           
-        }
 
+            if (DayValue == tFactor)
+            {
+                isNight = false;
+            }
+
+        }
 
         else if (isNight == false && tFactor <= DayValue)
         {
             tFactor += Time.deltaTime * changeSpeed;
             SkyBox.SetColor("_Tint",new Color(tFactor, tFactor, tFactor, 1));
 
-           
+            if (NightValue == tFactor)
+            {
+                isNight = true;
+            }
+
         }
 
         
 
     }
-
-
-  
 
 
 
