@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04b79e4ced65a5d42996ce71e695a256, type: 3}
   m_Name: MasonJar
   m_EditorClassIdentifier: 
-  Top: {r: 1, g: 1, b: 1, a: 0}
-  Side: {r: 0.5377358, g: 0.5377358, b: 0.5377358, a: 0}
+  Top: {r: 1, g: 1, b: 1, a: 1}
+  Side: {r: 1, g: 1, b: 1, a: 1}
   liquidLevel: 0

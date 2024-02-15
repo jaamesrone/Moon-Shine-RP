@@ -9,6 +9,8 @@ TagManager:
   - MainArea
   - Computer
   - Backyard
+  - ShotGlass
+  - MasonJar
   layers:
   - Default
   - TransparentFX
