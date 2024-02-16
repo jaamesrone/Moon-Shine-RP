@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class ClickableItem : MonoBehaviour
 {
@@ -8,10 +7,17 @@ public class ClickableItem : MonoBehaviour
     public Material material;
     private bool isSelected = false;
 
+    // Public game objects for each color
+    public GameObject clearObject;
+    public GameObject redObject;
+    public GameObject greenObject;
+    public GameObject brownObject;
+
     private void Start()
     {
         material.SetFloat("_Liquid", 0f);
     }
+
     void Update()
     {
         if (isSelected && Input.GetMouseButtonDown(0))
@@ -21,11 +27,15 @@ public class ClickableItem : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit))
             {
-                RawImage image = hit.transform.GetComponent<RawImage>();
-                if (image != null)
+                if (hit.transform.CompareTag("clear") ||
+                    hit.transform.CompareTag("red") ||
+                    hit.transform.CompareTag("green") ||
+                    hit.transform.CompareTag("brown"))
                 {
-                    liquidEffect.Top = image.color;
-                    liquidEffect.Side = image.color; 
+                    Color targetColor = GetColorFromTag(hit.transform.tag);
+
+                    liquidEffect.Top = targetColor;
+                    liquidEffect.Side = targetColor;
                     StartCoroutine(IncreaseLiquid());
 
                     // Set color properties in your material
@@ -33,8 +43,42 @@ public class ClickableItem : MonoBehaviour
                     material.SetColor("_Side", liquidEffect.Side);
 
                     isSelected = false; // Reset selection state
+
+                    // Unhide the corresponding object based on the color
+                    switch (hit.transform.tag)
+                    {
+                        case "clear":
+                            UnhideObject(clearObject);
+                            break;
+                        case "red":
+                            UnhideObject(redObject);
+                            break;
+                        case "green":
+                            UnhideObject(greenObject);
+                            break;
+                        case "brown":
+                            UnhideObject(brownObject);
+                            break;
+                    }
                 }
             }
+        }
+    }
+
+    Color GetColorFromTag(string tag)
+    {
+        switch (tag)
+        {
+            case "clear":
+                return Color.white;
+            case "red":
+                return Color.red;
+            case "green":
+                return Color.green;
+            case "brown":
+                return new Color(0.64f, 0.16f, 0.16f); // Brown color
+            default:
+                return Color.white; // Default color if tag is not recognized
         }
     }
 
@@ -54,8 +98,14 @@ public class ClickableItem : MonoBehaviour
 
         isSelected = false; // Reset selection state
     }
+
     void OnMouseDown()
     {
         isSelected = true;
+    }
+
+    void UnhideObject(GameObject obj)
+    {
+        obj.SetActive(true);
     }
 }

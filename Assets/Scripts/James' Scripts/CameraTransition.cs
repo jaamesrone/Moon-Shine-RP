@@ -80,9 +80,10 @@ public class CameraTransition : MonoBehaviour
 
     private IEnumerator ComputerTransitionCoroutine()
     {
-        float distanceOffset = -500f;//distance between camera and object
-        Vector3 targetPosition = targetPos.position + new Vector3(0f, 0f, distanceOffset); // calculate target position
-        Quaternion targetRotation = Quaternion.Euler(0f, 0f, 0f); // calculate target rotation
+        float distanceOffset = -0.3f;//distance between camera and object
+        float targetXoffset = -5f;
+        Vector3 targetPosition = targetPos.position + new Vector3(targetXoffset, 0f, distanceOffset); // calculate target position
+        Quaternion targetRotation = Quaternion.Euler(0f, 90f, 0f); // calculate target rotation
 
         float elapsedTime = 0f;
 
@@ -129,8 +130,8 @@ public class CameraTransition : MonoBehaviour
     private IEnumerator BackyardTransitionCoroutine()
     {
         float elapsedTime = 0f;
-        float targetXOffset = -800f;//distance between camera and object
-        Vector3 targetPosition = targetPos.position + new Vector3(targetXOffset, 0f, -5f); // calculate target position
+        float targetXOffset = 1f;//distance between camera and object
+        Vector3 targetPosition = targetPos.position + new Vector3(targetXOffset, 0f, 0f); // calculate target position
         Quaternion targetRotation = Quaternion.Euler(0f, 90f, 0f); // calculate target rotation
 
         foreach (var canvasGroup in buttonCanvasGroups)
@@ -179,8 +180,8 @@ public class CameraTransition : MonoBehaviour
     private IEnumerator startOrderWindowTransition()
     {
         float elapsedTime = 0f;
-        float targetZ = 500f;
-        float distanceOffset = 500;
+        float targetZ = 14f;
+        float distanceOffset = 3f;
 
         Vector3 targetPosition = new Vector3(targetPos.position.x + distanceOffset, targetPos.position.y, targetZ); // calculate target position
         Quaternion targetRotation = Quaternion.Euler(0f, -90f, 0f); // calculate target rotation
@@ -233,7 +234,7 @@ public class CameraTransition : MonoBehaviour
     private IEnumerator StillTransition(Transform targetTransform)
     {
         float elapsedTime = 0.0f;
-        float zDistance = -500f;//distance between camera and object
+        float zDistance = -5f;//distance between camera and object
         Vector3 targetPosition = targetTransform.position + targetTransform.forward * zDistance; // calculate target position
         originalPosition = transform.position;
         originalRotation = transform.rotation;
